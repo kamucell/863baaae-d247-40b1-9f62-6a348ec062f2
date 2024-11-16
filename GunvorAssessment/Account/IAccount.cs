@@ -16,7 +16,11 @@ namespace GunvorAssessment.Account
 		/// </summary>
 		decimal OverdraftLimit { get; set; }
 		decimal Balance { get; }
-		Task DepositAsync(decimal amount);
+
+
+	 
+
+        Task DepositAsync(decimal amount);
 		Task WithdrawAsync(decimal amount);
 	}
 }

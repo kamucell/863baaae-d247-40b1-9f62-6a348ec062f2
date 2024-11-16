@@ -34,14 +34,11 @@ namespace GunvorAssessment.Account
         public void SetAudit(ITransactionAudit transactionAudit) =>            _transactionAudit = transactionAudit;
         public void SetLock(ILockDownManager lockDownManager) {
             _lockDownManager = lockDownManager;
-            _lockDownManager.LockDownStarted += (s,e)=>_isLocked=true;
-            _lockDownManager.LockDownEnded += (s, e) => _isLocked = false;
+            _lockDownManager.LockDownStarted += (sender,evnt)=>_isLocked=true;
+            _lockDownManager.LockDownEnded += (sender, evnt) => _isLocked = false;
         }
 
-        private void _lockDownManager_LockDownStarted(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public   async Task<bool> IsRequestedAmountHighrThanZero(decimal requestedAmount) =>  (requestedAmount > 0);
  

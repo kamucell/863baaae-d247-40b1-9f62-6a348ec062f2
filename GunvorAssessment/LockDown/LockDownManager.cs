@@ -9,7 +9,8 @@ namespace GunvorAssessment.LockDown
     public class LockDownManager : ILockDownManager
     {
         private bool _isLocked;
-
+        
+        
         public event EventHandler LockDownStarted;
         public event EventHandler LockDownEnded;
 
@@ -31,17 +32,13 @@ namespace GunvorAssessment.LockDown
             }
         }
 
-        public bool IsLocked()
-        {
-            return _isLocked;
-        }
 
-        protected virtual void OnLockDownStarted()
+        protected   void OnLockDownStarted()
         {
             LockDownStarted?.Invoke(this, EventArgs.Empty);
         }
 
-        protected virtual void OnLockDownEnded()
+        protected   void OnLockDownEnded()
         {
             LockDownEnded?.Invoke(this, EventArgs.Empty);
         }

@@ -10,7 +10,9 @@ namespace GunvorAssessment.LockDown
 	/// </remarks>
 	public interface ILockDownManager
 	{
-		event EventHandler LockDownStarted;
+		
+
+        event EventHandler LockDownStarted;
 
 		event EventHandler LockDownEnded;
 

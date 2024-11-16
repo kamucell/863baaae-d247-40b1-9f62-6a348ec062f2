@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using GunvorAssessment.Account;
 using GunvorAssessment.Audit;
 using GunvorAssessment.DateService;
@@ -22,31 +23,44 @@ namespace GunvorAssessment
     /// </remarks>
     public class GlobalFactory : IGlobalFactory
 	{
-		public IAccount GetAccount(AccountType type, int accountNumber)
+		private ILockDownManager _lockDownManager;
+        private ITransactionAudit _transactionAudit;
+        public GlobalFactory()
+        {
+            
+        }
+        public IAccount GetAccount(AccountType type, int accountNumber)
 		{
-			if (type == AccountType.Current)
-				return new GunvorAssessment.Account.CurrentAccount(accountNumber);
+			IAccount account = null;
+				
 
-			if (type == AccountType.Saving)
-				return new GunvorAssessment.Account.SavingAccount(accountNumber);
+            if (type == AccountType.Current)
+				account = new GunvorAssessment.Account.CurrentAccount(accountNumber);
+			else if (type == AccountType.Saving)
+                account = new GunvorAssessment.Account.SavingAccount(accountNumber);
+			else
+			   throw new GunvorAssessmentException("Invalid Account  Type");
 
-
-			throw new GunvorAssessmentException(" Invalid Daata Type");
-			
+			account.SetAudit(GetAudit());
+            account.SetLock(GetLockDownManager());
+			return account;
         }
 
 		public ITransactionAudit GetAudit()
 		{
-			throw new NotImplementedException();
+            if (_transactionAudit == null) _transactionAudit = new TransactionAudit();
+            return _transactionAudit;
+            
 		}
 
 		public ILockDownManager GetLockDownManager()
 		{
-			return new LockDownManager();
+			if (_lockDownManager == null) 	_lockDownManager = new LockDownManager();
+			return _lockDownManager;
 		}
 		public IDateService GetDateService()
 		{
-			throw new NotImplementedException();
-		}
+            throw new NotImplementedException();
+        }
 	}
 }

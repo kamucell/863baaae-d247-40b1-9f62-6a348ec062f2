@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GunvorAssessment.Exceptions
 {
-    public  class ExceedOverDraftLimit : GunvorAssessmentException
+    public  class ExceedOverDraftLimit : UnauthorizedAccountOperationException
     {
         public ExceedOverDraftLimit() :base("The limit has been exceeded.")
         {

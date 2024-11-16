@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GunvorAssessment.Exceptions
 {
-    public  class AmountLessThanZero : UnauthorizedAccountOperationException
+    public  class AmountmoreThanBalance : UnauthorizedAccountOperationException
     {
-        public AmountLessThanZero() :base("Amount Can Not Less Than Zero")
+        public AmountmoreThanBalance() :base("The amount cannot exceed the balance.")
         {
             
         }

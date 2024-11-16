@@ -44,8 +44,10 @@
     <Compile Include="Account\CurrentAccount.cs" />
     <Compile Include="Account\BaseAccount.cs" />
     <Compile Include="Account\SavingAccount.cs" />
+    <Compile Include="Audit\TransactionAudit.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="DateService\IDateService.cs" />
+    <Compile Include="Exceptions\AmountmoreThanBalance.cs" />
     <Compile Include="Exceptions\ExceedOverDraftLimit.cs" />
     <Compile Include="Exceptions\AmountLessThanZero.cs" />
     <Compile Include="Exceptions\GunvorAssessmentException.cs" />

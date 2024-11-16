@@ -10,9 +10,11 @@ namespace GunvorAssessment.Audit
 	/// </remarks>
 	public class Transaction
 	{
-		public int Id { get; set; }
+		public Guid Id { get; set; }
 
-		public TransactionType TransactionType { get; set; }
+		public int AccountId { get; set; }
+
+        public TransactionType TransactionType { get; set; }
 
 		public DateTimeOffset TransactionDate { get; set; }
 	}

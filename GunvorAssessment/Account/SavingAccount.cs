@@ -1,4 +1,5 @@
 ﻿using GunvorAssessment.Exceptions;
+using GunvorAssessment.LockDown;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +15,15 @@ namespace GunvorAssessment.Account
 
         }
 
-
-
         public async Task<bool> IsBalanceLessThanZero(decimal requestedAmount) => (_balance- requestedAmount <= 0);
-
-        public async Task<bool> IsAmountMoreThan(decimal requestedAmount) => (requestedAmount > (base._balance*(decimal).10));
+        public async Task<bool> IsAmountMoreThanBalance(decimal requestedAmount) => (requestedAmount > (base._balance*(decimal).10));
         public override async Task WithdrawAsync(decimal amount)
         {
             if (await IsBalanceLessThanZero(amount))
-                throw new GunvorAssessment.Exceptions.UnauthorizedAccountOperationException("The limit has been exceeded.");
+                throw new ExceedOverDraftLimit();
 
-            if (await IsAmountMoreThan(amount))
-                throw new GunvorAssessment.Exceptions.UnauthorizedAccountOperationException("Ca nnot withdraw than you blaance");
+            if (await IsAmountMoreThanBalance(amount))
+                throw new GunvorAssessment.Exceptions.AmountmoreThanBalance();
 
             await base.WithdrawAsync(amount);
         }

@@ -1,3 +1,5 @@
+using GunvorAssessment.Audit;
+using GunvorAssessment.LockDown;
 using System.Threading.Tasks;
 
 namespace GunvorAssessment.Account
@@ -21,6 +23,8 @@ namespace GunvorAssessment.Account
 	 
 
         Task DepositAsync(decimal amount);
-		Task WithdrawAsync(decimal amount);
+        void SetAudit(ITransactionAudit transactionAudit);
+        void SetLock(ILockDownManager lockDownManager);
+        Task WithdrawAsync(decimal amount);
 	}
 }

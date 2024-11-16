@@ -1,4 +1,5 @@
 ﻿using GunvorAssessment.Exceptions;
+using GunvorAssessment.LockDown;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace GunvorAssessment.Account
     public class CurrentAccount : BaseAccount
     {
 
-        public CurrentAccount(int accountNumber) : base(accountNumber)
+        public CurrentAccount(int accountNumber  ) : base(accountNumber)
         {
 
         }
@@ -18,14 +19,11 @@ namespace GunvorAssessment.Account
 
         public override async Task WithdrawAsync(decimal amount)
         {
-            if (await IsDoNotExceededOverDraftLimit(amount))                 throw new UnauthorizedAccountOperationException("The limit has been exceeded.");
+            if (await IsDoNotExceededOverDraftLimit(amount))      
+                    throw new UnauthorizedAccountOperationException("The limit has been exceeded.");
 
             await base.WithdrawAsync(amount);
         }
-
-
-
-
 
     }
 }

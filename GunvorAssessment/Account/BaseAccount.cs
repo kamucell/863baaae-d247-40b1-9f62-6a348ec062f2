@@ -55,8 +55,8 @@ namespace GunvorAssessment.Account
             await _transactionAudit.WriteTransactionAsync(new Transaction()
             {
                 AccountId = _accountNumber,
-                Id= Guid.NewGuid(),
-                TransactionDate = DateTime.UtcNow,
+                Amount = amount,
+                Balance = _balance,
                 TransactionType = TransactionType.Deposit,
             });
 
@@ -74,8 +74,8 @@ namespace GunvorAssessment.Account
             await _transactionAudit?.WriteTransactionAsync(new Transaction()
             {
                 AccountId = _accountNumber,
-                Id = Guid.NewGuid(),
-                TransactionDate = DateTime.UtcNow,
+                Amount = amount,
+                Balance = _balance,
                 TransactionType = TransactionType.Withdraw,
             });
         }

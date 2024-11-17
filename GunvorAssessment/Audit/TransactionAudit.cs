@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GunvorAssessment.DateService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,12 @@ namespace GunvorAssessment.Audit
 {
     public class TransactionAudit : ITransactionAudit
     {
+        private readonly IDateService _dateService;
         private Dictionary<int, List<Transaction>> _transactions;
-        public TransactionAudit()
+        public TransactionAudit(IDateService dateService)
         {
             _transactions = new Dictionary<int, List<Transaction>>();
+            _dateService = dateService;
         }
         public async Task<IEnumerable<Transaction>> GetAccountTransactionsAsync(int accountNumber) =>
                                                                             (_transactions.ContainsKey(accountNumber)) ? 
@@ -22,6 +25,8 @@ namespace GunvorAssessment.Audit
 
         public Task WriteTransactionAsync(Transaction transaction)
         {
+            transaction.Id =Guid.NewGuid();
+            transaction.TransactionDate = _dateService.GetCurrentDateTime();
             if (!_transactions.ContainsKey(transaction.AccountId))
                 _transactions.Add(transaction.AccountId, new List<Transaction>() { 
                         transaction
@@ -29,8 +34,6 @@ namespace GunvorAssessment.Audit
             else
                 _transactions[transaction.AccountId].Add(transaction);
             return Task.CompletedTask;
-
-            
         }
     }
 }

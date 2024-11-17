@@ -25,6 +25,8 @@ namespace GunvorAssessment
 	{
 		private ILockDownManager _lockDownManager;
         private ITransactionAudit _transactionAudit;
+        private DateService.DateService _dateService;
+
         public GlobalFactory()
         {
             
@@ -48,19 +50,20 @@ namespace GunvorAssessment
 
 		public ITransactionAudit GetAudit()
 		{
-            if (_transactionAudit == null) _transactionAudit = new TransactionAudit();
+            if (_transactionAudit == null) _transactionAudit = new TransactionAudit(GetDateService());
             return _transactionAudit;
             
 		}
-
-		public ILockDownManager GetLockDownManager()
+       
+        public ILockDownManager GetLockDownManager()
 		{
 			if (_lockDownManager == null) 	_lockDownManager = new LockDownManager();
 			return _lockDownManager;
 		}
 		public IDateService GetDateService()
 		{
-            throw new NotImplementedException();
+            if (_dateService == null)  _dateService = new GunvorAssessment.DateService.DateService();
+            return _dateService;
         }
 	}
 }
